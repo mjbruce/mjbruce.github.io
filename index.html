@@ -359,6 +359,7 @@
 
                                   // Gets the crypto's array position in coinmarketcap api call
                                   var pos = $scope.cryptoData.map(getSymbol).indexOf($scope.addMe)
+                                  $scope.test = $scope.cryptoData.map(getSymbol)
 
                                   if (pos == -1) {
                                     $scope.errortext = "This crypto is not a valid crypto";
@@ -381,9 +382,8 @@
                             <div ng-app="cryptoWorth" ng-controller="coolCtrl">
                               <table>
                                 <tr ng-repeat="x in cryptos">
-                                  <td>{{ x. }}</td>
+                                  <td>{{ x.symbol }}</td>
                                   <td>{{ x.price_usd }} </td>
-                                  <td><input type="text" ng-model=""></td>
                                 </tr>
                               </table>
                               <div>
@@ -395,6 +395,7 @@
                                     <button ng-click="addCrypto()">Add</button>
                                   </div>
                                 </div>
+                                <p>{{test}}
                                 <p>{{errortext}}</p>
                               </div>
                             </div>
