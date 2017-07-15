@@ -310,11 +310,11 @@
                         <div class="modal-body">
                             <h2>Project Title</h2>
                             <hr class="star-primary">
-
+                            <!--
                             <script>
                                 var app = angular.module("myShoppingList", []);
                                 app.controller("myCtrl", function($scope) {
-                                    $scope.products = ["Milk", "Bread", "Cheese"];
+                                    $scope.products = ["ETH", "BTC", "GNT"];
                                     $scope.addItem = function () {
                                         $scope.errortext = "";
                                         if (!$scope.addMe) {return;}
@@ -330,7 +330,28 @@
                                     }
                                 });
                             </script>
+                            -->
 
+                            <script>
+                              var app = angular.module("cryptoWorth", []);
+                              app.controller("coolCtrl", function($scope, $http) {
+                                $http.get("https://api.coinmarketcap.com/v1/ticker/?limit=10")
+                                .then(function(respone) {
+                                  $scope.cryptos = response.data;
+                                })
+                              });
+                            </script>
+
+                            <div ng-app="cryptoWorth" ng-controller="coolCtrl">
+                              <h2>Check Your Crypto Worth</h2>
+                              <table>
+                                <tr ng-repeat="x in cryptos">
+                                  <td>{{ x.id }}</td>
+                                </tr>
+                              </table>
+                            </div>
+
+                            <!--
                             <div ng-app="myShoppingList" ng-cloak ng-controller="myCtrl" style="max-width:400px;">
                               <header>
                                 <h3>My Shopping List</h3>
@@ -350,6 +371,7 @@
                                 <p>{{errortext}}</p>
                               </div>
                             </div>
+                            -->
 
                             <!-- <img src="img/portfolio/cabin.png" class="img-responsive img-centered" alt=""> -->
                             <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
