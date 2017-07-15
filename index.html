@@ -335,6 +335,7 @@
                             <script>
                               var app = angular.module("cryptoWorth", []);
                               app.controller("coolCtrl", function($scope, $http) {
+                                $scope.test = "lol"
                                 $http.get("https://api.coinmarketcap.com/v1/ticker/?limit=10")
                                 .then(function(respone) {
                                   $scope.cryptos = response.data;
@@ -345,6 +346,7 @@
                             <div ng-app="cryptoWorth" ng-controller="coolCtrl">
                               <h2>Check Your Crypto Worth</h2>
                               <p>{{ cryptos }}</p>
+                              <p>{{ test }}</p>
                               <table>
                                 <tr ng-repeat="x in cryptos">
                                   <td>{{ x.id }}</td>
