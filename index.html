@@ -308,7 +308,7 @@
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2">
                         <div class="modal-body">
-                            <h2>Project Title</h2>
+                            <h2>Check Your Crypto Net Worth</h2>
                             <hr class="star-primary">
                             <!--
                             <script>
@@ -335,21 +335,68 @@
                             <script>
                               var app = angular.module("cryptoWorth", []);
                               app.controller("coolCtrl", function($scope, $http) {
+                                $scope.cryptos = ["ETH"];
+
                                 $http.get("https://api.coinmarketcap.com/v1/ticker/?limit=10")
                                 .then(function(response) {
-                                  $scope.cryptos = response.data;
-                                  $scope.test = respone.status;
+                                  $scope.cryptoData = response.data;
                                 });
+
+                                // Helper func
+                                var getSymbol = function (element) {
+                                  return element.symbol;
+                                }
+
+                                $scope.addCrypto = function() {
+                                  $scope.errorText = "";
+                                  // Changes It To Upper-Case
+                                  $scope.addMe = $scope.addMe.toUpperCase();
+
+                                  // If trying to add nothing
+                                  if (!$scope.addMe) {
+                                    return;
+                                  }
+
+                                  // Gets the crypto's array position in coinmarketcap api call
+                                  var pos = $scope.cryptoData.map(getSymbol).indexOf($scope.addMe)
+
+                                  if (pos == -1) {
+                                    $scope.errortext = "This crypto is not a valid crypto";
+                                  } else {
+                                    // Changes addMe to crypto object from coinmarketcap api call,
+                                    // so we have access to price
+                                    $scope.addMe = $scope.cryptoData[pos];
+                                  }
+
+                                  if ($scope.cryptos.map(getSymbol).indexOf($scope.addMe.symbol) == -1) {
+                                    $scope.cryptos.push($scope.addMe);
+                                  } else {
+                                    $scope.errortext = "This crypto is already in your list.";
+                                  }
+
+                                }
                               });
                             </script>
 
                             <div ng-app="cryptoWorth" ng-controller="coolCtrl">
-                              <h2>Check Your Crypto Worth</h2>
                               <table>
                                 <tr ng-repeat="x in cryptos">
-                                  <td>{{ x.id }}</td>
+                                  <td>{{ x. }}</td>
+                                  <td>{{ x.price_usd }} </td>
+                                  <td><input type="text" ng-model=""></td>
                                 </tr>
                               </table>
+                              <div>
+                                <div>
+                                  <div>
+                                    <input placeholder="Add Your Cryptos Here" ng-model="addMe">
+                                  </div>
+                                  <div>
+                                    <button ng-click="addCrypto()">Add</button>
+                                  </div>
+                                </div>
+                                <p>{{errortext}}</p>
+                              </div>
                             </div>
 
                             <!--
