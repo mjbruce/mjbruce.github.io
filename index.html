@@ -335,10 +335,10 @@
                             <script>
                               var app = angular.module("cryptoWorth", []);
                               app.controller("coolCtrl", function($scope, $http) {
-                                $scope.test = "lol"
                                 $http.get("https://api.coinmarketcap.com/v1/ticker/?limit=10")
                                 .then(function(respone) {
                                   $scope.cryptos = response.data;
+                                  $scope.test = respone.status;
                                 });
                               });
                             </script>
