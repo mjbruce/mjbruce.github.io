@@ -307,7 +307,47 @@
                         <div class="modal-body">
                             <h2>Project Title</h2>
                             <hr class="star-primary">
-                            <img src="img/portfolio/cabin.png" class="img-responsive img-centered" alt="">
+                            <script>
+                                var app = angular.module("myShoppingList", []);
+                                app.controller("myCtrl", function($scope) {
+                                    $scope.products = ["Milk", "Bread", "Cheese"];
+                                    $scope.addItem = function () {
+                                        $scope.errortext = "";
+                                        if (!$scope.addMe) {return;}
+                                        if ($scope.products.indexOf($scope.addMe) == -1) {
+                                            $scope.products.push($scope.addMe);
+                                        } else {
+                                            $scope.errortext = "The item is already in your shopping list.";
+                                        }
+                                    }
+                                    $scope.removeItem = function (x) {
+                                        $scope.errortext = "";
+                                        $scope.products.splice(x, 1);
+                                    }
+                                });
+                            </script>
+
+                            <div ng-app="myShoppingList" ng-cloak ng-controller="myCtrl" style="max-width:400px;">
+                              <header>
+                                <h3>My Shopping List</h3>
+                              </header>
+                              <ul>
+                                <li ng-repeat="x in products">{{x}}<span ng-click="removeItem($index)" style="cursor:pointer;">×</span></li>
+                              </ul>
+                              <div>
+                                <div>
+                                  <div>
+                                    <input placeholder="Add shopping items here" ng-model="addMe">
+                                  </div>
+                                  <div>
+                                    <button ng-click="addItem()">Add</button>
+                                  </div>
+                                </div>
+                                <p>{{errortext}}</p>
+                              </div>
+                            </div>
+                            
+                            <!-- <img src="img/portfolio/cabin.png" class="img-responsive img-centered" alt=""> -->
                             <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
                             <ul class="list-inline item-details">
                                 <li>Client:
