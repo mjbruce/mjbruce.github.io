@@ -362,7 +362,8 @@
                                   $scope.test = $scope.cryptoData.map(getSymbol)
 
                                   if (pos == -1) {
-                                    $scope.errortext = "This crypto is not a valid crypto";
+                                    $scope.errorText = "This crypto is not a valid crypto";
+                                    return;
                                   } else {
                                     // Changes addMe to crypto object from coinmarketcap api call,
                                     // so we have access to price
@@ -372,9 +373,11 @@
                                   if ($scope.cryptos.map(getSymbol).indexOf($scope.addMe.symbol) == -1) {
                                     $scope.cryptos.push($scope.addMe);
                                   } else {
-                                    $scope.errortext = "This crypto is already in your list.";
+                                    $scope.errorText = "This crypto is already in your list.";
                                   }
 
+                                    // Resets addMe for display in HTML
+                                    $scope.addMe = $scope.addMe.symbol
                                 }
                               });
                             </script>
@@ -395,8 +398,7 @@
                                     <button ng-click="addCrypto()">Add</button>
                                   </div>
                                 </div>
-                                <p>{{test}}
-                                <p>{{errortext}}</p>
+                                <p>{{errorText}}</p>
                               </div>
                             </div>
 
